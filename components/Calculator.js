@@ -6,7 +6,8 @@ import { useState } from 'react';
 
 const KWH_PER_KW_MONTHLY = 140;
 const PRICE_PER_KWH = 500;
-const COST_PER_KW = 7200000;
+const COST_PER_KW_MIN = 3800000;
+const COST_PER_KW_MAX = 4500000;
 
 export default function Calculator() {
   const t = useTranslations('calculator');
@@ -23,11 +24,12 @@ export default function Calculator() {
     if (!monthlyKwh || monthlyKwh <= 0) return;
 
     const systemKw = Math.ceil(monthlyKwh / KWH_PER_KW_MONTHLY);
-    const cost = systemKw * COST_PER_KW;
+    const costMin = systemKw * COST_PER_KW_MIN;
+    const costMax = systemKw * COST_PER_KW_MAX;
     const savings = monthlyKwh * PRICE_PER_KWH;
-    const payback = cost / (savings * 12);
+    const payback = ((costMin + costMax) / 2) / (savings * 12);
 
-    setResult({ systemKw, cost, savings, payback: payback.toFixed(1) });
+    setResult({ systemKw, costMin, costMax, savings, payback: payback.toFixed(1) });
   };
 
   const formatNum = (n) => n.toLocaleString('uz-UZ');
@@ -144,7 +146,7 @@ export default function Calculator() {
                 </h3>
                 {[
                   { label: t('systemSize'), value: `${result.systemKw} kW`, big: true },
-                  { label: t('estimatedCost'), value: `${formatNum(result.cost)} so'm` },
+                  { label: t('estimatedCost'), value: `${formatNum(result.costMin)} – ${formatNum(result.costMax)} so'm` },
                   { label: t('monthlySavings'), value: `${formatNum(result.savings)} ${t('perMonth')}` },
                   { label: t('paybackPeriod'), value: `${result.payback} ${t('years')}` },
                 ].map(({ label, value, big }) => (

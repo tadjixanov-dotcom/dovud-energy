@@ -11,7 +11,7 @@ export default function Footer() {
 
   const navLinks = [
     { key: 'home', href: `/${locale}` },
-    { key: 'systems', href: `/${locale}/systems` },
+    { key: 'blog', href: `/${locale}/blog` },
     { key: 'projects', href: `/${locale}/projects` },
     { key: 'certificates', href: `/${locale}/certificates` },
     { key: 'calculator', href: `/${locale}/calculator` },

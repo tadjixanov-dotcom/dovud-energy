@@ -9,24 +9,19 @@ const systems = [
     key: 'ongrid',
     icon: '☀',
     components: ['component1', 'component2', 'component3', 'component4'],
-    diagram: [
-      { label: 'Quyosh panellari', x: 15, y: 15 },
-      { label: 'Invertor', x: 45, y: 40 },
-      { label: 'Smart Meter', x: 25, y: 70 },
-      { label: 'Davlat tarmog\'i', x: 65, y: 70 },
-    ]
+    corners: ['component1', 'component2', 'component3', 'component4'],
   },
   {
     key: 'hybrid',
     icon: '⚡',
     components: ['component1', 'component2', 'component5', 'component3'],
-    diagram: []
+    corners: ['component1', 'component2', 'component5', 'component3'],
   },
   {
     key: 'offgrid',
     icon: '🔋',
     components: ['component1', 'component2', 'component5'],
-    diagram: []
+    corners: ['component1', 'component2', 'component5', null],
   },
 ];
 
@@ -123,23 +118,23 @@ export default function SystemTypes() {
 
             {/* Corner labels */}
             {[
-              { label: t('component1'), pos: { top: 30, left: 30 } },
-              { label: t('component2'), pos: { top: 30, right: 30 } },
-              { label: t(activeSystem?.components[2] || 'component3'), pos: { bottom: 30, left: 30 } },
-              { label: t(activeSystem?.components[3] || 'component4'), pos: { bottom: 30, right: 30 } },
-            ].map(({ label, pos }, i) => (
+              { compKey: activeSystem?.corners[0], pos: { top: 30, left: 30 } },
+              { compKey: activeSystem?.corners[1], pos: { top: 30, right: 30 } },
+              { compKey: activeSystem?.corners[2], pos: { bottom: 30, left: 30 } },
+              { compKey: activeSystem?.corners[3], pos: { bottom: 30, right: 30 } },
+            ].filter(({ compKey }) => compKey).map(({ compKey, pos }, i) => (
               <div key={i} style={{
                 position: 'absolute',
                 ...pos,
                 background: '#1a1a1a',
-                border: '1px solid rgba(34,197,94,0.3)',
+                border: '1px solid rgba(85,186,22,0.3)',
                 borderRadius: 8,
                 padding: '8px 14px',
                 fontSize: 12,
-                color: '#22c55e',
+                color: '#55BA16',
                 fontWeight: 600,
               }}>
-                {label}
+                {t(compKey)}
               </div>
             ))}
 
