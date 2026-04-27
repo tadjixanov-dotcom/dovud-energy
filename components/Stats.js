@@ -7,7 +7,7 @@ const maxVal = Math.max(...monthlyData);
 
 export default function Stats() {
   const t = useTranslations('stats');
-  const months = JSON.parse(t.raw('months'));
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
   const benefits = ['benefit1', 'benefit2', 'benefit3', 'benefit4'];
 

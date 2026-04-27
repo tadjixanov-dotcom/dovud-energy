@@ -18,7 +18,7 @@ export const metadata = {
 };
 
 export default async function LocaleLayout({ children, params }) {
-  const { locale } = await params;
+  const { locale } = await Promise.resolve(params);
 
   if (!locales.includes(locale)) {
     notFound();
