@@ -1,14 +1,13 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
+import { routing } from '../../routing';
 import { notFound } from 'next/navigation';
 import '../globals.css';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
-const locales = ['uz', 'ru', 'en', 'zh'];
-
 export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
+  return routing.locales.map((locale) => ({ locale }));
 }
 
 export const metadata = {
@@ -20,7 +19,7 @@ export const metadata = {
 export default async function LocaleLayout({ children, params }) {
   const { locale } = await params;
 
-  if (!locales.includes(locale)) {
+  if (!routing.locales.includes(locale)) {
     notFound();
   }
 
